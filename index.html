@@ -500,13 +500,13 @@
       container.innerHTML = '<div class="loading">Loading races...</div>';
 
       try {
-        const url = `https://election-night.decisiondeskhq.com/dates/${date}/${state}.json`;
+        const url = `https://cors-anywhere.com/https://election-night.decisiondeskhq.com/dates/${date}/${state}.json`;
         const response = await fetch(url);
         const data = await response.json();
 
         const racesWithPreviews = await Promise.all((data.races || []).map(async (race) => {
           try {
-            const detailResponse = await fetch(`https://embed-api.ddhq.io/v2/races/${race.race_id}`);
+            const detailResponse = await fetch(`https://cors-anywhere.com/https://embed-api.ddhq.io/v2/races/${race.race_id}`);
             const detailData = await detailResponse.json();
             return { ...race, previewData: detailData };
           } catch {
@@ -617,7 +617,7 @@
       }
 
       try {
-        const response = await fetch(`https://embed-api.ddhq.io/v2/races/${raceId}`);
+        const response = await fetch(`https://cors-anywhere.com/https://embed-api.ddhq.io/v2/races/${raceId}`);
         const race = await response.json();
 
         displayRaceDetail(race);
@@ -626,7 +626,7 @@
 
         currentOpen = setInterval(async function () {
           try {
-            const refreshResponse = await fetch(`https://embed-api.ddhq.io/v2/races/${raceId}`);
+            const refreshResponse = await fetch(`https://cors-anywhere.com/https://embed-api.ddhq.io/v2/races/${raceId}`);
             const refreshRace = await refreshResponse.json();
             displayRaceDetail(refreshRace);
           } catch (err) {
